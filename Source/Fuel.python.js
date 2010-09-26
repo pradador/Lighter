@@ -5,7 +5,6 @@ description: Python language fuel.
 license: MIT-style
 
 authors:
-- Jose Prado
 - Italo Maia
 
 requires:
@@ -15,7 +14,6 @@ provides: [Fuel.python]
 
 ...
 */
-
 Fuel.python=new Class(
     {
         Extends:Fuel,
