@@ -12,8 +12,6 @@ requires:
 
 provides: [Fuel.java]
 
-ps: no annotation support yet
-
 ...
 */
 Fuel.java = new Class ({
@@ -33,6 +31,9 @@ Fuel.java = new Class ({
 				csv: "byte, short, int, long, float, double, boolean, char",
 				alias: 'kw2'
 			},
+            classes:{ // java.lang
+                csv:"Object, Class, ClassLoader, Math, Boolean, Character, Byte, Short, Integer, Long, Float, Double, String, StringBuffer, Enum, System, Runtime, Process, Thread, Runnable, ThreadGroup, Throwable, Error, Exception"
+            }
 		}),
 		
 		/** Set of RegEx patterns to match */
