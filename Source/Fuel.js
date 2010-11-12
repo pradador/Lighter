@@ -97,7 +97,7 @@ var Fuel = new Class({
 		
 		if (!options.strict) {
 			// Find matches through the complete source code.
-			matches.extend(this.builder[options.matchType].pass(this.code, this)());
+            Object.append(matches, this.builder[options.matchType].pass(this.code, this)());
 		} else if (delim.start && delim.end) {
 			// Find areas between language delimiters and find matches there.
 			while ((match = delim.start.exec(this.code)) != null ) {

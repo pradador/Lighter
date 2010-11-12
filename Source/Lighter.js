@@ -8,7 +8,7 @@ authors:
 - Jose Prado
 
 requires:
-  core/1.2.4: '*'
+  core/1.3: '*'
 
 provides: [Lighter]
 
@@ -37,7 +37,7 @@ provides: [Lighter]
 	
 		initialize: function(codeblock, options) {
 			this.setOptions(options);
-			this.id = this.options.id || this.name + '_' + $time();
+			this.id = this.options.id || this.name + '_' + Date.now();
 			this.codeblock = $(codeblock);
 			this.container = $(this.options.container);
 			this.code = chop(this.codeblock.get('html')).replace(/&lt;/gim, '<').replace(/&gt;/gim, '>').replace(/&amp;/gim, '&');
@@ -116,7 +116,7 @@ provides: [Lighter]
 			} catch (e) {
 				this.loadScript('clipboard', 'ZeroClipboard.js', {
 					'load': this.loadClipboard.bind(this),
-					'error': $empty
+					'error': Function.from()
 				});
 				return false;
 			}
@@ -126,7 +126,7 @@ provides: [Lighter]
 		/* ---->>> INIT HELPER METHODS <<<---- */
 		/* ----------------------------------- */
 		getPath: function() {
-		  if (!$chk(Lighter.path)) {
+		  if (!Lighter.path) {
 		      $$('head script').each(function(el) {
 		          var script  = el.src.split('?', 1),
 		              pattern = /Lighter(\.full|\.lite)?\.js$/gi;
@@ -156,7 +156,7 @@ provides: [Lighter]
 		},
 		
 		loadScript: function(holder, fileName, events) {
-			if ($chk(Lighter.scripts[holder])) {
+			if (Lighter.scripts[holder] != undefined) {
 				Lighter.scripts[holder].addEvents({
 					load: events.load,
 					error: events.error,
@@ -166,7 +166,7 @@ provides: [Lighter]
 				});
 			} else {
 				Lighter.scripts[holder] = new Element('script', {
-					'src': this.options.path+fileName+'?'+$time(),
+					'src': this.options.path+fileName+'?'+Date.now(),
 					'type': 'text/javascript',
 					'events': {
 						load: events.load,
@@ -180,12 +180,12 @@ provides: [Lighter]
 		},
 		
 		loadStylesheet: function(holder, fileName) {
-			if (!$chk(Lighter.stylesheets[holder])) {
+			if (!Lighter.stylesheets[holder]) {
 				Lighter.stylesheets[holder] = new Element('link', {
 					rel: "stylesheet",
 					type: "text/css",
 					media: "screen",
-					href: this.options.path+fileName+'?'+$time()
+					href: this.options.path+fileName+'?'+Date.now()
 				}).inject(document.head);
 			}
 		},
@@ -198,7 +198,7 @@ provides: [Lighter]
 			    pointer = 0;
 		    
 			// If no matches were found, insert code plain text.
-			if (!$defined(this.fuel.wicks[0])) {
+			if (this.fuel.wicks[0] == undefined) {
 				lighter.appendText(this.code);
 			} else {
 		
